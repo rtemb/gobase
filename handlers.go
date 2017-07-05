@@ -4,9 +4,11 @@ import (
 	"fmt"
 
 	"github.com/takama/router"
+	"github.com/rtemb/gobase/appinfo"
+	"net/http"
 )
 
-// root endpoint
+// root test endpoint
 func root(c *router.Control) {
 	fmt.Fprintf(c.Writer, "Processing URL %s...", c.Request.URL.Path)
 }
@@ -18,4 +20,14 @@ func logger(c *router.Control) {
 		remoteAddr = c.Request.RemoteAddr
 	}
 	log.Infof("%s %s %s", remoteAddr, c.Request.Method, c.Request.URL.Path)
+}
+
+// Readiness probe for Kubernetes
+func info(c *router.Control) {
+	appinfo.Info(c, appinfo.RELEASE, appinfo.REPO, appinfo.COMMIT)
+}
+
+// Liveness probe for Kubernetes
+func healthz(c *router.Control) {
+	c.Code(http.StatusOK).Body(http.StatusText(http.StatusOK))
 }
