@@ -1,3 +1,15 @@
+language: go
+
+services:
+  - docker
+
+go:
+  - 1.8
+
+before_script:
+  - go get -u github.com/Masterminds/glide
+  - glide install
+
 script: 
   - go version
   - go vet $(shell go list github.com/$TRAVIS_REPO_SLUG/... | grep -v vendor)
