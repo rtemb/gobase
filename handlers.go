@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/takama/router"
 	"github.com/rtemb/gobase/appinfo"
+	"github.com/takama/router"
 	"net/http"
 )
 

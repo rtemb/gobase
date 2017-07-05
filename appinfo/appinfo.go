@@ -2,10 +2,10 @@ package appinfo
 
 import (
 	"fmt"
+	"github.com/takama/router"
 	"net/http"
 	"os"
 	"runtime"
-	"github.com/takama/router"
 )
 
 // ServiceInfo defines HTTP API response giving service information
@@ -33,7 +33,6 @@ var (
 	// COMMIT returns the short sha from git
 	COMMIT = "UNKNOWN"
 )
-
 
 // Info provides JSON API response giving service information
 func Info(c *router.Control, version, repo, commit string) {
