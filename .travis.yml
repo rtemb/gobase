@@ -17,3 +17,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - go test -v -race $(go list ./... | grep -v /vendor/)
   - CGO_ENABLED=0 GOOS=$GOOS go build
+
+  after_success:
+  - sh .travis/deploy_dockerhub.sh
+  - test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh

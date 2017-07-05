@@ -35,7 +35,6 @@ GOOS=linux CGO_ENABLED=0 go build
 ```
 
 ### 4. Docker
-
 Build docker container: 
 ```
 docker build -t gobase -f ./Dockerfile .
@@ -49,9 +48,25 @@ docker run -e PORT='8081' -p 8081:8081 gobase
 Create DockerHub repository for CI: https://hub.docker.com 
 
 ### 5. Travis CI 
-
 Enable Travis CI for repository here: https://travis-ci.org/profile
 Click "Sync account" and enable CI for your repository
 
-Add DOCKER_EMAIL, DOCKER_USER, DOCKER_PASS varibles in _your_travis_ci_repo_/settings
+Add variables DOCKER_EMAIL, DOCKER_USER, DOCKER_PASS varibles in _your_travis_ci_repo_/settings
+
+### 5. Deploy in Heroku
+Instal Heroku https://devcenter.heroku.com/articles/heroku-cli
+
+For first time create and deploy you app manualy:
+```
+heroku login
+heroku apps:create gobase
+heroku plugins:install heroku-container-registry
+heroku container:login
+heroku container:push web
+heroku ps:scale web=1 
+```
+
+Add HEROKU_API_KEY, HEROKU_APP_NAME varibles in Travis CI page _your_travis_ci_repo_/settings
+HEROKU_API_KEY - Heroku API can be found in ‘Account Settings’, in heroku (https://dashboard.heroku.com/account)
+HEROKU_APP_NAME - it's result of command _heroku create_
 
