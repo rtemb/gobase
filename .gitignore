@@ -1,0 +1,5 @@
+gobase
+.vscode
+vendor
+glide.lock
+debug
